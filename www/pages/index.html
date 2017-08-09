@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>EdutechApp</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- MetisMenu CSS -->
+        <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+        
+
+        <!-- Custom CSS -->
+        <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        
+        <style>
+            .sidenav {
+                height: 100%;
+                width: 0;
+                position: fixed;
+                z-index: 100;
+                top: 0;
+                left: 0;
+                overflow: hidden;
+                padding-top: 50px;
+                transition: 0.5s;
+            }
+            .sidenav .closebtn {
+                position: absolute;
+                top: 0;
+                right: 25px;
+                font-size: 36px;
+                margin-left: 50px;
+            }
+            
+            @media screen and (max-height: 450px){
+                .sidenav {padding-top: 45px;}
+                .sidenav a {font-size: 18px;}
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <div id="overlay"></div>
+        <div id="wrapper">
+
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle pull-left" onclick="openNav()">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand pull-right" href="index.html">Edutech</a>
+                </div>
+                <!-- /.navbar-header -->
+
+                <div class="navbar-default sidebar sidenav" id="mySidenav" role="navigation">
+                    <div class="sidebar-nav navbar-collapse in" aria-expanded="false">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fa fa-close"></i></a>
+                        <ul class="nav" id="side-menu">
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#"><i class="fa fa-users fa-fw"></i> Profiles<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse">
+                                    <li>
+                                        <a href="#" onclick="profile('nim')">Nimrod Mutandwa</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" onclick="profile('john')">John Smith</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            
+                            <li><a href="settings.html"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+                <!-- /.navbar-static-side -->
+            </nav>
+
+            <div id="page-wrapper" ng-app="studentInfo" ng-controller="studentCtrl">
+
+                <!-- /.row -->
+                <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-user"></i>&nbsp; &nbsp; 
+                            <span id="pname"> <span ng-bind="name">{name}</span></span>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body" role="tabpanel">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" id="tablist" role="tablist">
+                                <li class="active" role="presentation"><a href="#overview" aria-controls="overview" data-toggle="tab"><i class="fa fa-list fa-fw"></i></a>
+                                </li>
+                                <li role="presentation"><a href="#tests" data-toggle="tab" aria-controls="tests"><i class="fa fa-paste fa-fw"></i></a>
+                                </li>
+                                <li role="presentation"><a href="#hw" data-toggle="tab" aria-controls="hw"><i class="fa fa-folder-open fa-fw"></i></a>
+                                </li>
+                                <li role="presentation"><a href="#exam" data-toggle="tab" aria-controls="exam"><i class="fa fa-edit fa-fw"></i></a>
+                                </li>
+                                <li role="presentation"><a href="#reports" data-toggle="tab" aria-controls="reports"><i class="fa fa-file-text-o fa-fw"></i></a>
+                                </li>
+                                <li role="presentation"><a href="#msg" data-toggle="tab" aria-controls="msg"><i class="fa fa-envelope fa-fw"></i></a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active" id="overview" >
+                                    <h4>Overview</h4>
+                                    <iframe src="https://www.w3schools.com" height="100"></iframe>
+                                    <div class="row" id="ovdata">
+                                        
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tests">
+                                    <h4>Homework</h4>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6 col-lg-4" ng-repeat="hw in homework track by $index">
+                                            <div class="accordion" >
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <a data-toggle="collapse" data-parent=".accordion" href="#hw{{hw.subject}}"><h4 class="panel-title">
+                                                            {{hw.subject}}
+                                                        </h4></a>
+                                                    </div>
+                                                    <div id="hw{{hw.subject}}" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <table class="table table-bordered table-hover table-responsive table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">Date</th>
+                                                                        <th class="text-center">Mark&nbsp;&nbsp;&nbsp;&nbsp;%</th>
+                                                                        <th class="text-center">Cls&nbsp;Avg&nbsp;%</th>
+                                                                        <th class="text-center"><i class="fa fa-comments-o fa-fw text-primary"></i></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr ng-repeat="tst in hw.row">
+                                                                        <td class="text-center">{{tst.date}}</td>
+                                                                        <td class="text-center">{{tst.mark}}</td>
+                                                                        <td class="text-center">{{tst.avg}}</td>
+                                                                        <td class="text-center ">
+                                                                            <i class="fa fa-comment fa-fw" ng-click="displayModal(tst.comment)"></i>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.row -->
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="hw">
+                                    <h4>Tests</h4>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6 col-lg-4" ng-repeat="test in tests track by $index">
+                                            <div class="accordion" >
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <a data-toggle="collapse" data-parent=".accordion" href="#{{test.subject}}"><h4 class="panel-title">
+                                                            {{test.subject}}
+                                                        </h4></a>
+                                                    </div>
+                                                    <div id="{{test.subject}}" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <table class="table table-bordered table-hover table-responsive table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">Date</th>
+                                                                        <th class="text-center">Mark&nbsp;&nbsp;&nbsp;&nbsp;%</th>
+                                                                        <th class="text-center">Cls&nbsp;Avg&nbsp;%</th>
+                                                                        <th class="text-center"><i class="fa fa-comments-o fa-fw text-primary"></i></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr ng-repeat="tst in test.row">
+                                                                        <td class="text-center">{{tst.date}}</td>
+                                                                        <td class="text-center">{{tst.mark}}</td>
+                                                                        <td class="text-center">{{tst.avg}}</td>
+                                                                        <td class="text-center ">
+                                                                            <i class="fa fa-comment fa-fw" ng-click="displayModal(tst.comment)"></i>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.row -->
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="exam">
+                                    <h4>Exam</h4>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6 col-lg-4" ng-repeat="exam in exams track by $index">
+                                            <div class="accordion" >
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <a data-toggle="collapse" data-parent=".accordion" href="#exam{{exam.subject}}"><h4 class="panel-title">
+                                                            {{exam.subject}}
+                                                        </h4></a>
+                                                    </div>
+                                                    <div id="exam{{exam.subject}}" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <table class="table table-bordered table-hover table-responsive table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">Date</th>
+                                                                        <th class="text-center">Mark&nbsp;&nbsp;&nbsp;&nbsp;%</th>
+                                                                        <th class="text-center">Cls&nbsp;Avg&nbsp;%</th>
+                                                                        <th class="text-center"><i class="fa fa-comments-o fa-fw text-primary"></i></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr ng-repeat="exm in exam.row">
+                                                                        <td class="text-center">{{exm.date}}</td>
+                                                                        <td class="text-center">{{exm.mark}}</td>
+                                                                        <td class="text-center">{{exm.avg}}</td>
+                                                                        <td class="text-center ">
+                                                                            <i class="fa fa-comment fa-fw" ng-click="displayModal(exm.comment)"></i>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.row -->
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="reports">
+                                    <h4>Reports</h4>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6 col-lg-4" ng-repeat="rep in reports track by $index">
+                                            <div class="accordion" >
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <a data-toggle="collapse" data-parent=".accordion" href="#{{rep.type}}"><h4 class="panel-title">
+                                                            <i class="fa fa-paste fa-fw"></i> Term {{rep.type}}
+                                                        </h4></a>
+                                                    </div>
+                                                    <div id="{{rep.type}}" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <table class="table table-hover table-responsive table-striped table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <td>Subject</td>
+                                                                        <td class="text-center">Min</td>
+                                                                        <td class="text-center">Max</td>
+                                                                        <td class="text-center">Avg</td>
+                                                                        <th class="text-center"><i class="fa fa-bar-chart-o fa-fw"></i></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr ng-repeat="ovdata in rep.row">
+                                                                        <td>{{ovdata.subject}}</td>
+                                                                        <td class="text-center">{{ovdata.min}}</td>
+                                                                        <td class="text-center">{{ovdata.max}}</td>
+                                                                        <td class="text-center">{{ovdata.avg}}</td>
+                                                                        <td colspan="3" class="text-center"><span class="glyphicon {{ovdata.icon}}"></span></td>
+                                                                    </tr>
+                                                                    
+                                                                </tbody>
+
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.row -->
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="msg">
+                                    <h4>Messages</h4>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6 col-lg-4" ng-repeat="ov in messages track by $index">
+                                            <div class="accordion" >
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <a data-toggle="collapse" data-parent=".accordion" href="#{{ov.id}}"><h4 class="panel-title">
+                                                            {{ov.name}}
+                                                        </h4></a>
+                                                    </div>
+                                                    <div id="{{ov.id}}" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <div class="tooltip-demo row">
+                                                                <span class="text-muted "><strong data-toggle="tooltip" data-placement="top" title="Location">
+                                                                        <i class="fa fa-map-marker text-danger " ></i> {{ov.location}}</strong>
+                                                                </span>
+                                                                <span class="text-muted ">
+                                                                    <em><i class="fa fa-calendar pull-right text-warning" data-toggle="tooltip" data-placement="top" title="{{ov.date}}"> {{ov.date}}</i> <br>
+                                                                        <i class="fa fa-clock-o pull-right text-primary" data-toggle="tooltip" data-placement="top" title="{{ov.time}}"> {{ov.time}}</i>
+                                                                    </em>
+                                                                </span>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">{{ov.description}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.row -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="modal_title"></h4>
+                            </div>
+                            <div class="modal-body" id="modal_msg">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+            </div>
+            <!-- /#page-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+
+        <!-- jQuery -->
+        <script src="../vendor/jquery/jquery.min.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+        
+        
+        <!-- Angular JavaScript -->
+        <script src="../js/angular.js"></script>
+
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+        <!-- DataTables JavaScript -->
+        <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+        <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="../dist/js/sb-admin-2.js"></script>  
+         <script src="../js/main.js?5"></script>
+      
+        <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+        <script>
+            var studentInfo = angular.module('studentInfo',[]);
+            var arr_url = ['ovdata','hwork','test','exam','report','messages'];
+            
+            studentInfo.controller('studentCtrl', function($scope, $http) {
+                $scope.displayModal = function(msg){
+                    displayModal('Comment',msg);
+                };
+                       
+            });
+            var xx = document.querySelector('[ng-app=studentInfo]');
+
+            $(document).ready(function () {
+                $('#dataTables-example').DataTable({
+                    responsive: true
+                });
+                
+                var $scope = angular.element(xx).scope();
+                $scope.$apply(function(){
+                    $scope.name = 'Nimrod Mutandwa';
+                });
+                student_update();
+
+                
+            });
+                
+            // tooltip demo
+            $('.tooltip-demo').tooltip({
+                selector: "[data-toggle=tooltip]",
+                container: "body"
+            });
+            // popover demo
+            $("[data-toggle=popover]")
+                    .popover();
+            
+            
+            function displayModal(title, msg) {
+                $("#modal_title").text(title);
+                $("#modal_msg").text(msg);
+                $("#myModal").modal();
+            }
+            
+            function openNav() {
+                $("#mySidenav").css("width","250px");
+                $("#overlay").css("background-color","rgba(0,0,0,0.4)");
+            }
+            function closeNav() {
+                $("#mySidenav").css("width","0");
+            }
+            
+            function profile(p) {
+                var $scope = angular.element(xx).scope();
+                if (p == 'nim') {
+                    $scope.$apply(function(){
+                        $scope.name = 'Nimrod Mutandwa';
+                    });
+                }
+                else {
+                    
+                    $scope.$apply(function(){
+                        $scope.name = 'John Smith';
+                    });
+                    
+                }
+                closeNav();
+            }
+            
+        </script>
+       
+
+
+    </body>
+
+</html>
